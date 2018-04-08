@@ -20,6 +20,7 @@ backups/
 # ignore config files
 config.json
 .sequelizerc
+sequelize_config.json
 
 # ignore webpack build
 public/build
