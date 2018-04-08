@@ -14,12 +14,12 @@ WORKDIR /hackmd
 
 RUN apt-get update && \
     apt-get install -y build-essential sudo && \
-    sudo -u hackmd sh -c "\
+    sudo -EHu hackmd sh -c "\
         yarn install --pure-lockfile && \
         yarn install --production=false --pure-lockfile && \
         npm run build && \
         yarn cache clean" && \
-    apt-get remove -y --auto-remove build-essential sudo && \
+    SUDO_FORCE_REMOVE=yes apt-get remove -y --auto-remove build-essential sudo && \
     apt-get clean && apt-get purge && rm -r /var/lib/apt/lists/*
 
 EXPOSE 3000
