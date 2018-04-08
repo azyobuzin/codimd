@@ -1,0 +1,35 @@
+{
+    "development": {
+        "domain": "localhost",
+        "urlAddPort": true,
+        "hsts": {
+            "enable": false
+        },
+        "db": {
+            "dialect": "sqlite",
+            "storage": "./db.hackmd.sqlite"
+        },
+        "email": true,
+        "allowEmailRegister": false,
+        "allowAnonymous": false,
+        "allowAnonymousEdits": true,
+        "defaultPermission": "locked",
+        "allowFreeURL": true,
+        "sessionSecret": "pfvVphCuuHcp00Yr0iuQQqchdNwdZOa7"
+    },
+    "production": {
+        "domain": "hackmd.azyobuzi.net",
+        "protocolUseSSL": true,
+        "allowOrigin": ["localhost", "hackmd.azyobuzi.net"],
+        "db": {
+            "dialect": "sqlite",
+            "storage": "/db/hackmd.sqlite3"
+        },
+        "email": true,
+        "allowEmailRegister": false,
+        "allowAnonymous": false,
+        "allowAnonymousEdits": true,
+        "defaultPermission": "locked",
+        "allowFreeURL": true
+    }
+}
