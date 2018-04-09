@@ -2,24 +2,23 @@
 
 FROM node:8.11.1
 
-# Set some default config variables
-ENV DEBIAN_FRONTEND noninteractive
-ENV NODE_ENV=production
+ENV DEBIAN_FRONTEND=noninteractive \
+    NODE_ENV=production
 
 RUN adduser --uid 10000 --home /hackmd/ --disabled-password --system hackmd
 
-COPY --chown=hackmd:root . /hackmd
+COPY . /hackmd
 
 WORKDIR /hackmd
 
 RUN apt-get update && \
-    apt-get install -y build-essential sudo && \
-    sudo -EHu hackmd sh -c "\
-        yarn install --pure-lockfile && \
-        yarn install --production=false --pure-lockfile && \
-        npm run build && \
-        yarn cache clean" && \
-    SUDO_FORCE_REMOVE=yes apt-get remove -y --auto-remove build-essential sudo && \
+    apt-get install -y build-essential && \
+    yarn install --pure-lockfile && \
+    yarn install --production=false --pure-lockfile && \
+    npm run build && \
+    yarn cache clean && \
+    chown -R hackmd ./ && \
+    apt-get remove -y --auto-remove build-essential && \
     apt-get clean && apt-get purge && rm -r /var/lib/apt/lists/*
 
 EXPOSE 3000
