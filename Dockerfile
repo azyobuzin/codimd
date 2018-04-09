@@ -5,7 +5,8 @@ FROM node:8.11.1
 ENV DEBIAN_FRONTEND=noninteractive \
     NODE_ENV=production
 
-RUN adduser --uid 10000 --home /hackmd/ --disabled-password --system hackmd
+RUN adduser --uid 10000 --home /hackmd/ --disabled-password --system hackmd && \
+    mkdir /db && chown hackmd /db
 
 COPY . /hackmd
 
