@@ -15,6 +15,7 @@
         "allowAnonymousEdits": true,
         "defaultPermission": "locked",
         "allowFreeURL": true,
+        "showViewcount": false,
         "sessionSecret": "pfvVphCuuHcp00Yr0iuQQqchdNwdZOa7"
     },
     "production": {
@@ -30,6 +31,7 @@
         "allowAnonymous": false,
         "allowAnonymousEdits": true,
         "defaultPermission": "locked",
-        "allowFreeURL": true
+        "allowFreeURL": true,
+        "showViewcount": false
     }
 }
