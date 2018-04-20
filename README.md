@@ -8,6 +8,7 @@ HackMD Community Edition
 [![build status][travis-image]][travis-url]
 [![version][github-version-badge]][github-release-page]
 [![Help Contribute to Open Source][codetriage-image]][codetriage-url]
+[![POEditor][poeditor-image]][poeditor-url]
 
 HackMD lets you create realtime collaborative markdown notes on all platforms.
 Inspired by Hackpad, with more focus on speed and flexibility.
@@ -329,3 +330,5 @@ See more at [http://operational-transformation.github.io/](http://operational-tr
 [standardjs-url]: https://github.com/feross/standard
 [codetriage-image]: https://www.codetriage.com/hackmdio/hackmd/badges/users.svg
 [codetriage-url]: https://www.codetriage.com/hackmdio/hackmd
+[poeditor-image]: https://img.shields.io/badge/POEditor-translate-blue.svg
+[poeditor-url]: https://poeditor.com/join/project/1OpGjF2Jir
