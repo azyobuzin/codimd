@@ -34,25 +34,25 @@ import S from 'string'
 
 const options = {
   valueNames: ['id', 'text', 'timestamp', 'fromNow', 'time', 'tags', 'pinned'],
-  item: '<li class="col-xs-12 col-sm-6 col-md-6 col-lg-4">' +
-            '<span class="id" style="display:none;"></span>' +
-            '<a href="#">' +
-                '<div class="item">' +
-                    '<div class="ui-history-pin fa fa-thumb-tack fa-fw"></div>' +
-                    '<div class="ui-history-close fa fa-close fa-fw" data-toggle="modal" data-target=".delete-modal"></div>' +
-                    '<div class="content">' +
-                        '<h4 class="text"></h4>' +
-                        '<p>' +
-                            '<i><i class="fa fa-clock-o"></i> visited </i><i class="fromNow"></i>' +
-                            '<br>' +
-                            '<i class="timestamp" style="display:none;"></i>' +
-                            '<i class="time"></i>' +
-                        '</p>' +
-                        '<p class="tags"></p>' +
-                    '</div>' +
-                '</div>' +
-            '</a>' +
-           '</li>',
+  item: `<li class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+          <span class="id" style="display:none;"></span>
+          <a href="#">
+            <div class="item">
+              <div class="ui-history-pin fa fa-thumb-tack fa-fw"></div>
+              <div class="ui-history-close fa fa-close fa-fw" data-toggle="modal" data-target=".delete-history-modal"></div>
+              <div class="content">
+                <h4 class="text"></h4>
+                <p>
+                  <i><i class="fa fa-clock-o"></i> visited </i><i class="fromNow"></i>
+                  <br>
+                  <i class="timestamp" style="display:none;"></i>
+                  <i class="time"></i>
+                </p>
+                <p class="tags"></p>
+              </div>
+            </div>
+          </a>
+        </li>`,
   page: 18,
   pagination: [{
     outerWindow: 1
@@ -208,8 +208,8 @@ function historyCloseClick (e) {
   e.preventDefault()
   const id = $(this).closest('a').siblings('span').html()
   const value = historyList.get('id', id)[0]._values
-  $('.ui-delete-modal-msg').text('Do you really want to delete below history?')
-  $('.ui-delete-modal-item').html(`<i class="fa fa-file-text"></i> ${value.text}<br><i class="fa fa-clock-o"></i> ${value.time}`)
+  $('.ui-delete-history-modal-msg').text('Do you really want to delete below history?')
+  $('.ui-delete-history-modal-item').html(`<i class="fa fa-file-text"></i> ${value.text}<br><i class="fa fa-clock-o"></i> ${value.time}`)
   clearHistory = false
   deleteId = id
 }
@@ -277,7 +277,7 @@ function deleteHistory () {
           checkHistoryList()
         }
       }
-      $('.delete-modal').modal('hide')
+      $('.delete-history-modal').modal('hide')
       deleteId = null
       clearHistory = false
     })
@@ -297,12 +297,12 @@ function deleteHistory () {
         deleteId = null
       })
     }
-    $('.delete-modal').modal('hide')
+    $('.delete-history-modal').modal('hide')
     clearHistory = false
   })
 }
 
-$('.ui-delete-modal-confirm').click(() => {
+$('.ui-delete-history-modal-confirm').click(() => {
   deleteHistory()
 })
 
@@ -318,7 +318,7 @@ $('.ui-save-history').click(() => {
     const blob = new Blob([history], {
       type: 'application/json;charset=utf-8'
     })
-    saveAs(blob, `hackmd_history_${moment().format('YYYYMMDDHHmmss')}`, true)
+    saveAs(blob, `codimd_history_${moment().format('YYYYMMDDHHmmss')}`, true)
   })
 })
 
@@ -342,8 +342,8 @@ $('.ui-open-history').bind('change', e => {
 })
 
 $('.ui-clear-history').click(() => {
-  $('.ui-delete-modal-msg').text('Do you really want to clear all history?')
-  $('.ui-delete-modal-item').html('There is no turning back.')
+  $('.ui-delete-history-modal-msg').text('Do you really want to clear all history?')
+  $('.ui-delete-history-modal-item').html('There is no turning back.')
   clearHistory = true
   deleteId = null
 })
@@ -369,6 +369,10 @@ $('.ui-refresh-history').click(() => {
     checkHistoryList()
     $('#history-list').slideDown('fast')
   })
+})
+
+$('.ui-delete-user-modal-cancel').click(() => {
+  $('.ui-delete-user').parent().removeClass('active')
 })
 
 $('.ui-logout').click(() => {

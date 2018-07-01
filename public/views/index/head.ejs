@@ -6,7 +6,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="description" content="<%= __('Best way to write and share your knowledge in markdown.') %>">
 <meta name="keywords" content="Collaborative, Markdown, Notes">
-<title>HackMD - <%= __('Collaborative markdown notes') %></title>
+<title>CodiMD - <%= __('Collaborative markdown notes') %></title>
 <link rel="icon" type="image/png" href="<%- url %>/favicon.png">
 <link rel="apple-touch-icon" href="<%- url %>/apple-touch-icon.png">
 <% if(useCDN) { %>
@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.4/select2.min.css" integrity="sha256-ijlUKKj3hJCiiT2HWo1kqkI79NTEYpzOsw5Rs3k42dI=" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.4/select2-bootstrap.min.css" integrity="sha256-NAWFcNIZdH+TS1xpWujF/EB/Y8gwBbEOCoaK/eqaer8=" crossorigin="anonymous" />
 <%- include ../build/cover-header %>
+<%- include ../shared/polyfill %>
 <% } else { %>
 <%- include ../build/cover-pack-header %>
 <% } %>
-<%- include ../shared/polyfill %>
