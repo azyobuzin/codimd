@@ -1,6 +1,5 @@
 {
     "development": {
-        "domain": "localhost",
         "urlAddPort": true,
         "hsts": {
             "enable": false
