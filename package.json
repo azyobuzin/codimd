@@ -10,7 +10,7 @@
     "standard": "node ./node_modules/standard/bin/cmd.js",
     "dev": "webpack --config webpack.config.js --progress --colors",
     "watch": "webpack --config webpack.config.js --progress --colors --watch",
-    "build": "webpack --config webpack.production.js --progress --colors --bail",
+    "build": "webpack --config webpack.production.js --bail",
     "postinstall": "bin/heroku",
     "start": "node app.js",
     "doctoc": "doctoc --title='# Table of Contents' README.md"

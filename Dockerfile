@@ -12,15 +12,15 @@ COPY . /hackmd
 
 WORKDIR /hackmd
 
-RUN apt-get update && \
-    apt-get install -y build-essential && \
-    yarn install --pure-lockfile && \
-    yarn install --production=false --pure-lockfile && \
+RUN apt-get update -q && \
+    apt-get install -q -y build-essential && \
+    yarn install --pure-lockfile --silent && \
+    yarn install --production=false --pure-lockfile --silent && \
     npm run build && \
     yarn cache clean && \
     chown -R hackmd ./ && \
-    apt-get remove -y --auto-remove build-essential && \
-    apt-get clean && apt-get purge && rm -r /var/lib/apt/lists/*
+    apt-get remove -q -y --auto-remove build-essential && \
+    apt-get clean -q && apt-get purge -q && rm -r /var/lib/apt/lists/*
 
 EXPOSE 3000
 USER hackmd
