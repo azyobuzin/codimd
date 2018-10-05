@@ -58,7 +58,7 @@ app.use(morgan('combined', {
 
 // socket io
 var io = require('socket.io')(server)
-io.engine.ws = new (require('uws').Server)({
+io.engine.ws = new (require('ws').Server)({
   noServer: true,
   perMessageDeflate: false
 })
@@ -113,7 +113,7 @@ if (config.csp.enable) {
 }
 
 i18n.configure({
-  locales: ['en', 'zh-CN', 'zh-TW', 'fr', 'de', 'ja', 'es', 'ca', 'el', 'pt', 'it', 'tr', 'ru', 'nl', 'hr', 'pl', 'uk', 'hi', 'sv', 'eo', 'da', 'ko'],
+  locales: ['en', 'zh-CN', 'zh-TW', 'fr', 'de', 'ja', 'es', 'ca', 'el', 'pt', 'it', 'tr', 'ru', 'nl', 'hr', 'pl', 'uk', 'hi', 'sv', 'eo', 'da', 'ko', 'id'],
   cookie: 'locale',
   directory: path.join(__dirname, '/locales'),
   updateFiles: config.updateI18nFiles
@@ -126,6 +126,9 @@ app.use(i18n.init)
 // routes without sessions
 // static files
 app.use('/', express.static(path.join(__dirname, '/public'), { maxAge: config.staticCacheTime }))
+app.use('/docs', express.static(path.resolve(__dirname, config.docsPath), { maxAge: config.staticCacheTime }))
+app.use('/uploads', express.static(path.resolve(__dirname, config.uploadsPath), { maxAge: config.staticCacheTime }))
+app.use('/default.md', express.static(path.resolve(__dirname, config.defaultNotePath), { maxAge: config.staticCacheTime }))
 
 // session
 app.use(session({
@@ -167,7 +170,7 @@ app.use(require('./lib/web/middleware/codiMDVersion'))
 
 // routes need sessions
 // template files
-app.set('views', path.join(__dirname, '/public/views'))
+app.set('views', config.viewPath)
 // set render engine
 app.engine('ejs', ejs.renderFile)
 // set view engine

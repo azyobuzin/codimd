@@ -7,7 +7,6 @@ CodiMD
 [![#CodiMD on matrix.org][matrix.org-image]][matrix.org-url]
 [![build status][travis-image]][travis-url]
 [![version][github-version-badge]][github-release-page]
-[![Help Contribute to Open Source][codetriage-image]][codetriage-url]
 [![POEditor][poeditor-image]][poeditor-url]
 
 CodiMD lets you create real-time collaborative markdown notes on all platforms.
@@ -101,7 +100,7 @@ To install use `helm install stable/hackmd`.
 For all further details, please check out the offical CodiMD  [K8s helm chart](https://github.com/kubernetes/charts/tree/master/stable/hackmd).
 
 ## CodiMD by docker container
-[![Try in PWD](https://cdn.rawgit.com/play-with-docker/stacks/cff22438/assets/images/button.png)](http://play-with-docker.com?stack=https://github.com/hackmdio/docker-hackmd/raw/master/docker-compose.yml&stack_name=codimd)
+[![Try in PWD](https://cdn.rawgit.com/play-with-docker/stacks/cff22438/assets/images/button.png)](http://play-with-docker.com?stack=https://github.com/hackmdio/codimd-container/raw/master/docker-compose.yml&stack_name=codimd)
 
 
 **Debian-based version:**
@@ -116,11 +115,11 @@ For all further details, please check out the offical CodiMD  [K8s helm chart](h
 The easiest way to setup CodiMD using docker are using the following three commands:
 
 ```console
-git clone https://github.com/hackmdio/docker-hackmd.git
-cd docker-codimd
+git clone https://github.com/hackmdio/codimd-container.git
+cd codimd-container
 docker-compose up
 ```
-Read more about it in the [docker repository…](https://github.com/hackmdio/docker-hackmd)
+Read more about it in the [container repository…](https://github.com/hackmdio/codimd-container)
 
 ## Cloudron
 
@@ -175,6 +174,7 @@ There are some config settings you need to change in the files below.
 | --------- | ------ | ----------- |
 | `NODE_ENV`  | `production` or `development` | set current environment (will apply corresponding settings in the `config.json`) |
 | `DEBUG` | `true` or `false` | set debug mode; show more logs |
+| `CMD_CONFIG_FILE` | `/path/to/config.json` | optional override for the path to CodiMD's config file |
 | `CMD_DOMAIN` | `codimd.org` | domain name |
 | `CMD_URL_PATH` | `codimd` | sub URL path, like `www.example.com/<URL_PATH>` |
 | `CMD_HOST` | `localhost` | host to listen on |
@@ -202,7 +202,7 @@ There are some config settings you need to change in the files below.
 | `CMD_GITLAB_CLIENTID` | no example | GitLab API client id |
 | `CMD_GITLAB_CLIENTSECRET` | no example | GitLab API client secret |
 | `CMD_GITLAB_VERSION` | no example | GitLab API version (v3 or v4) |
-| `CMD_MATTERMOST_BASEURL` | no example | Mattermost authentication endpoint |
+| `CMD_MATTERMOST_BASEURL` | no example | Mattermost authentication endpoint for versions below 5.0. For Mattermost version 5.0 and above, see [guide](docs/guides/auth/mattermost-self-hosted.md). |
 | `CMD_MATTERMOST_CLIENTID` | no example | Mattermost API client id |
 | `CMD_MATTERMOST_CLIENTSECRET` | no example | Mattermost API client secret |
 | `CMD_DROPBOX_CLIENTID` | no example | Dropbox API client id |
@@ -229,6 +229,14 @@ There are some config settings you need to change in the files below.
 | `CMD_SAML_ATTRIBUTE_ID` | `sAMAccountName` | attribute map for `id` (optional, default: NameID of SAML response) |
 | `CMD_SAML_ATTRIBUTE_USERNAME` | `mailNickname` | attribute map for `username` (optional, default: NameID of SAML response) |
 | `CMD_SAML_ATTRIBUTE_EMAIL` | `mail` | attribute map for `email` (optional, default: NameID of SAML response if `CMD_SAML_IDENTIFIERFORMAT` is default) |
+| `CMD_OAUTH2_USER_PROFILE_URL` | `https://example.com` | where retrieve information about a user after succesful login. Needs to output JSON. (no default value) Refer to the [Mattermost](docs/guides/auth/mattermost-self-hosted.md) or [Nextcloud](docs/guides/auth/nextcloud.md) examples for more details on all of the `CMD_OAUTH2...` options. |
+| `CMD_OAUTH2_USER_PROFILE_USERNAME_ATTR` | `name` | where to find the username in the JSON from the user profile URL. (no default value)|
+| `CMD_OAUTH2_USER_PROFILE_DISPLAY_NAME_ATTR` | `display-name` | where to find the display-name in the JSON from the user profile URL. (no default value) |
+| `CMD_OAUTH2_USER_PROFILE_EMAIL_ATTR` | `email` | where to find the email address in the JSON from the user profile URL. (no default value) |
+| `CMD_OAUTH2_TOKEN_URL` | `https://example.com` | sometimes called token endpoint, please refer to the documentation of your OAuth2 provider (no default value) |
+| `CMD_OAUTH2_AUTHORIZATION_URL` | `https://example.com` | authorization URL of your provider, please refer to the documentation of your OAuth2 provider (no default value) |
+| `CMD_OAUTH2_CLIENT_ID` | `afae02fckafd...` | you will get this from your OAuth2 provider when you register CodiMD as OAuth2-client, (no default value) |
+| `CMD_OAUTH2_CLIENT_SECRET` | `afae02fckafd...` | you will get this from your OAuth2 provider when you register CodiMD as OAuth2-client, (no default value) |
 | `CMD_IMGUR_CLIENTID` | no example | Imgur API client id |
 | `CMD_EMAIL` | `true` or `false` | set to allow email signin |
 | `CMD_ALLOW_PDF_EXPORT` | `true` or `false` | Enable or disable PDF exports |
@@ -279,19 +287,15 @@ There are some config settings you need to change in the files below.
 | `defaultPermission` | `freely`, `editable`, `limited`, `locked`, `protected` or `private` | set notes default permission (only applied on signed users) |
 | `dbURL` | `mysql://localhost:3306/database` | set the db URL; if set, then db config (below) won't be applied |
 | `db` | `{ "dialect": "sqlite", "storage": "./db.codimd.sqlite" }` | set the db configs, [see more here](http://sequelize.readthedocs.org/en/latest/api/sequelize/) |
-| `sslKeyPath` | `./cert/client.key` | SSL key path (only need when you set `useSSL`) |
-| `sslCertPath` | `./cert/codimd_io.crt` | SSL cert path (only need when you set `useSSL`) |
-| `sslCAPath` | `['./cert/COMODORSAAddTrustCA.crt']` | SSL ca chain (only need when you set `useSSL`) |
-| `dhParamPath` | `./cert/dhparam.pem` | SSL dhparam path (only need when you set `useSSL`) |
-| `tmpPath` | `./tmp/` | temp directory path |
-| `defaultNotePath` | `./public/default.md` | default note file path |
-| `docsPath` | `./public/docs` | docs directory path |
-| `indexPath` | `./public/views/index.ejs` | index template file path |
-| `hackmdPath` | `./public/views/hackmd.ejs` | hackmd template file path |
-| `errorPath` | `./public/views/error.ejs` | error template file path |
-| `prettyPath` | `./public/views/pretty.ejs` | pretty template file path |
-| `slidePath` | `./public/views/slide.hbs` | slide template file path |
-| `uploadsPath` | `./public/uploads` | uploads directory - needs to be persistent when you use imageUploadType `filesystem` |
+| `sslKeyPath` | `./cert/client.key` | SSL key path<sup>1</sup> (only need when you set `useSSL`) |
+| `sslCertPath` | `./cert/codimd_io.crt` | SSL cert path<sup>1</sup> (only need when you set `useSSL`) |
+| `sslCAPath` | `['./cert/COMODORSAAddTrustCA.crt']` | SSL ca chain<sup>1</sup> (only need when you set `useSSL`) |
+| `dhParamPath` | `./cert/dhparam.pem` | SSL dhparam path<sup>1</sup> (only need when you set `useSSL`) |
+| `tmpPath` | `./tmp/` | temp directory path<sup>1</sup> |
+| `defaultNotePath` | `./public/default.md` | default note file path<sup>1</sup> |
+| `docsPath` | `./public/docs` | docs directory path<sup>1</sup> |
+| `viewPath` | `./public/views` | template directory path<sup>1</sup> |
+| `uploadsPath` | `./public/uploads` | uploads directory<sup>1</sup> - needs to be persistent when you use imageUploadType `filesystem` |
 | `sessionName` | `connect.sid` | cookie session name |
 | `sessionSecret` | `secret` | cookie session secret |
 | `sessionLife` | `14 * 24 * 60 * 60 * 1000` | cookie session life |
@@ -300,6 +304,7 @@ There are some config settings you need to change in the files below.
 | `heartbeatTimeout` | `10000` | socket.io heartbeat timeout |
 | `documentMaxLength` | `100000` | note max length |
 | `email` | `true` or `false` | set to allow email signin |
+| `oauth2` | `{baseURL: ..., userProfileURL: ..., userProfileUsernameAttr: ..., userProfileDisplayNameAttr: ..., userProfileEmailAttr: ..., tokenURL: ..., authorizationURL: ..., clientID: ..., clientSecret: ...}` | An object detailing your OAuth2 provider. Refer to the [Mattermost](docs/guides/auth/mattermost-self-hosted.md) or [Nextcloud](docs/guides/auth/nextcloud.md) examples for more details!|
 | `allowEmailRegister`  | `true` or `false` | set to allow email register (only applied when email is set, default is `true`. Note `bin/manage_users` might help you if registration is `false`.) |
 | `allowGravatar` | `true` or `false` | set to `false` to disable gravatar as profile picture source on your instance |
 | `imageUploadType` | `imgur`, `s3`, `minio`, `azure` or `filesystem`(default) | Where to upload images. For S3, see our Image Upload Guides for [S3](docs/guides/s3-image-upload.md) or [Minio](docs/guides/minio-image-upload.md)|
@@ -307,6 +312,8 @@ There are some config settings you need to change in the files below.
 | `s3` | `{ "accessKeyId": "YOUR_S3_ACCESS_KEY_ID", "secretAccessKey": "YOUR_S3_ACCESS_KEY", "region": "YOUR_S3_REGION" }` | When `imageuploadtype` be set to `s3`, you would also need to setup this key, check our [S3 Image Upload Guide](docs/guides/s3-image-upload.md) |
 | `s3bucket` | `YOUR_S3_BUCKET_NAME` | bucket name when `imageUploadType` is set to `s3` or `minio` |
 | `showViewcount` | `true` or `false` | set `true` to show viewcount in published note |
+
+<sup>1</sup>: relative paths are based on CodiMD's base directory
 
 ## Third-party integration API key settings
 
@@ -368,7 +375,5 @@ See more at [http://operational-transformation.github.io/](http://operational-tr
 [github-release-page]: https://github.com/hackmdio/codimd/releases
 [standardjs-image]: https://cdn.rawgit.com/feross/standard/master/badge.svg
 [standardjs-url]: https://github.com/feross/standard
-[codetriage-image]: https://www.codetriage.com/hackmdio/codimd/badges/users.svg
-[codetriage-url]: https://www.codetriage.com/hackmdio/codimd
 [poeditor-image]: https://img.shields.io/badge/POEditor-translate-blue.svg
 [poeditor-url]: https://poeditor.com/join/project/1OpGjF2Jir
