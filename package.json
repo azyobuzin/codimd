@@ -13,7 +13,8 @@
     "build": "webpack --config webpack.production.js --bail",
     "postinstall": "bin/heroku",
     "start": "node app.js",
-    "doctoc": "doctoc --title='# Table of Contents' README.md"
+    "doctoc": "doctoc --title='# Table of Contents' README.md",
+    "migrate": "sequelize db:migrate"
   },
   "dependencies": {
     "Idle.Js": "git+https://github.com/shawnmclean/Idle.js",

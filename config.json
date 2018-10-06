@@ -12,7 +12,7 @@
         "allowEmailRegister": false,
         "allowAnonymous": false,
         "allowAnonymousEdits": true,
-        "defaultPermission": "locked",
+        "defaultPermission": "private",
         "allowFreeURL": true,
         "showViewcount": false,
         "sessionSecret": "pfvVphCuuHcp00Yr0iuQQqchdNwdZOa7"
@@ -29,7 +29,7 @@
         "allowEmailRegister": false,
         "allowAnonymous": false,
         "allowAnonymousEdits": true,
-        "defaultPermission": "locked",
+        "defaultPermission": "private",
         "allowFreeURL": true,
         "showViewcount": false
     }
