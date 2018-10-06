@@ -1,4 +1,6 @@
 .git/
+!.git/HEAD
+!.git/refs/
 node_modules/
 public/build/
 db.hackmd.sqlite
