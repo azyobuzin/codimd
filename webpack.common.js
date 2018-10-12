@@ -10,6 +10,7 @@ var gracefulFs = require('graceful-fs')
 gracefulFs.gracefulify(fs)
 
 module.exports = {
+  name: 'app',
   plugins: [
     new webpack.ProvidePlugin({
       Visibility: 'visibilityjs',
@@ -184,7 +185,7 @@ module.exports = {
     ],
     'cover-styles-pack': [
       path.join(__dirname, 'node_modules/bootstrap/dist/css/bootstrap.min.css'),
-      path.join(__dirname, 'node_modules/font-awesome/css/font-awesome.min.css'),
+      path.join(__dirname, 'node_modules/fork-awesome/css/fork-awesome.min.css'),
       path.join(__dirname, 'public/css/bootstrap-social.css'),
       path.join(__dirname, 'node_modules/select2/select2.css'),
       path.join(__dirname, 'node_modules/select2/select2-bootstrap.css')
@@ -236,10 +237,9 @@ module.exports = {
     ],
     'index-styles-pack': [
       path.join(__dirname, 'node_modules/bootstrap/dist/css/bootstrap.min.css'),
-      path.join(__dirname, 'node_modules/font-awesome/css/font-awesome.min.css'),
+      path.join(__dirname, 'node_modules/fork-awesome/css/fork-awesome.min.css'),
       path.join(__dirname, 'public/css/bootstrap-social.css'),
-      path.join(__dirname, 'node_modules/ionicons/css/ionicons.min.css'),
-      path.join(__dirname, 'node_modules/octicons/build/octicons.css')
+      path.join(__dirname, 'node_modules/ionicons/css/ionicons.min.css')
     ],
     'index-pack': [
       'babel-polyfill',
@@ -287,9 +287,8 @@ module.exports = {
     ],
     'pretty-styles-pack': [
       path.join(__dirname, 'node_modules/bootstrap/dist/css/bootstrap.min.css'),
-      path.join(__dirname, 'node_modules/font-awesome/css/font-awesome.min.css'),
-      path.join(__dirname, 'node_modules/ionicons/css/ionicons.min.css'),
-      path.join(__dirname, 'node_modules/octicons/build/octicons.css')
+      path.join(__dirname, 'node_modules/fork-awesome/css/fork-awesome.min.css'),
+      path.join(__dirname, 'node_modules/ionicons/css/ionicons.min.css')
     ],
     'pretty-pack': [
       'babel-polyfill',
@@ -324,9 +323,8 @@ module.exports = {
       path.join(__dirname, 'public/css/markdown.css')
     ],
     'slide-styles-pack': [
-      path.join(__dirname, 'node_modules/font-awesome/css/font-awesome.min.css'),
-      path.join(__dirname, 'node_modules/ionicons/css/ionicons.min.css'),
-      path.join(__dirname, 'node_modules/octicons/build/octicons.css')
+      path.join(__dirname, 'node_modules/fork-awesome/css/fork-awesome.min.css'),
+      path.join(__dirname, 'node_modules/ionicons/css/ionicons.min.css')
     ],
     'slide-pack': [
       'babel-polyfill',
