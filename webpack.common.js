@@ -1,12 +1,12 @@
-var webpack = require('webpack')
-var path = require('path')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var CopyWebpackPlugin = require('copy-webpack-plugin')
+const webpack = require('webpack')
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 // Fix possible nofile-issues
-var fs = require('fs')
-var gracefulFs = require('graceful-fs')
+const fs = require('fs')
+const gracefulFs = require('graceful-fs')
 gracefulFs.gracefulify(fs)
 
 module.exports = {
@@ -202,7 +202,6 @@ module.exports = {
       'babel-polyfill',
       'script-loader!jquery-ui-resizable',
       'script-loader!js-url',
-      'expose-loader?filterXSS!xss',
       'script-loader!Idle.Js',
       'expose-loader?LZString!lz-string',
       'script-loader!codemirror',
@@ -253,7 +252,6 @@ module.exports = {
       'script-loader!handlebars',
       'expose-loader?hljs!highlight.js',
       'expose-loader?emojify!emojify.js',
-      'expose-loader?filterXSS!xss',
       'script-loader!Idle.Js',
       'script-loader!gist-embed',
       'expose-loader?LZString!lz-string',
@@ -273,7 +271,6 @@ module.exports = {
     ],
     pretty: [
       'babel-polyfill',
-      'expose-loader?filterXSS!xss',
       'flowchart.js',
       'js-sequence-diagrams',
       'expose-loader?RevealMarkdown!reveal-markdown',
@@ -298,7 +295,6 @@ module.exports = {
       'script-loader!handlebars',
       'expose-loader?hljs!highlight.js',
       'expose-loader?emojify!emojify.js',
-      'expose-loader?filterXSS!xss',
       'script-loader!gist-embed',
       'flowchart.js',
       'js-sequence-diagrams',
@@ -310,7 +306,6 @@ module.exports = {
     slide: [
       'babel-polyfill',
       'bootstrap-tooltip',
-      'expose-loader?filterXSS!xss',
       'flowchart.js',
       'js-sequence-diagrams',
       'expose-loader?RevealMarkdown!reveal-markdown',
@@ -338,7 +333,6 @@ module.exports = {
       'script-loader!handlebars',
       'expose-loader?hljs!highlight.js',
       'expose-loader?emojify!emojify.js',
-      'expose-loader?filterXSS!xss',
       'script-loader!gist-embed',
       'flowchart.js',
       'js-sequence-diagrams',
@@ -392,7 +386,7 @@ module.exports = {
   module: {
     rules: [{
       test: /\.js$/,
-      use: [{loader: 'babel-loader'}],
+      use: [{ loader: 'babel-loader' }],
       exclude: [/node_modules/, /public\/vendor/]
     }, {
       test: /\.css$/,
@@ -428,43 +422,43 @@ module.exports = {
       test: require.resolve('js-sequence-diagrams'),
       use: [{
         loader: 'imports-loader',
-        options: {_: 'lodash', Raphael: 'raphael', eve: 'eve'}
+        options: { _: 'lodash', Raphael: 'raphael', eve: 'eve' }
       }]
     }, {
       test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-      use: [{loader: 'file-loader'}]
+      use: [{ loader: 'file-loader' }]
     }, {
       test: /\.html$/,
-      use: [{loader: 'string-loader'}]
+      use: [{ loader: 'string-loader' }]
     }, {
       test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
       use: [{
         loader: 'url-loader',
-        options: {prefix: 'font/', limit: '5000'}
+        options: { prefix: 'font/', limit: '5000' }
       }]
     }, {
       test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
       use: [{
         loader: 'url-loader',
-        options: {limit: '5000', mimetype: 'application/octet-stream'}
+        options: { limit: '5000', mimetype: 'application/octet-stream' }
       }]
     }, {
       test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
       use: [{
         loader: 'url-loader',
-        options: {limit: '10000', mimetype: 'svg+xml'}
+        options: { limit: '10000', mimetype: 'svg+xml' }
       }]
     }, {
       test: /\.png(\?v=\d+\.\d+\.\d+)?$/,
       use: [{
         loader: 'url-loader',
-        options: {limit: '10000', mimetype: 'image/png'}
+        options: { limit: '10000', mimetype: 'image/png' }
       }]
     }, {
       test: /\.gif(\?v=\d+\.\d+\.\d+)?$/,
       use: [{
         loader: 'url-loader',
-        options: {limit: '10000', mimetype: 'image/gif'}
+        options: { limit: '10000', mimetype: 'image/gif' }
       }]
     }]
   },
