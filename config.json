@@ -8,6 +8,7 @@
             "dialect": "sqlite",
             "storage": "./db.hackmd.sqlite"
         },
+        "useCDN": false,
         "email": true,
         "allowEmailRegister": false,
         "allowAnonymous": false,
@@ -26,6 +27,7 @@
             "dialect": "sqlite",
             "storage": "/db/hackmd.sqlite3"
         },
+        "useCDN": false,
         "email": true,
         "allowEmailRegister": false,
         "allowAnonymous": false,
