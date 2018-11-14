@@ -29,7 +29,10 @@
     this._elTitlesNames = []
     this.elTitleElements = []
     for (var i = 1; i < 6; i++) {
-      if (this.el.getElementsByTagName('h' + i).length) {
+      var hcount = this.el.getElementsByTagName('h' + i).length
+
+      // If there is only one h1, it is a title element and it won't be listed in the ToC
+      if (hcount && !(i == 1 && hcount == 1)) {
         this._elTitlesNames.push('h' + i)
       }
     }
