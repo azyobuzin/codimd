@@ -82,6 +82,8 @@ Just to more confusion: We are still friends with HackMD :heart:
 7. Run `node_modules/.bin/sequelize db:migrate`, this step will migrate your db to the latest schema
 8. Run the server as you like (node, forever, pm2)
 
+To stay up to date with your installation it's recommended to join our [Matrix channel][matrix.org-url] or subscribe to the [release feed][github-release-feed].
+
 ## Heroku Deployment
 
 You can quickly setup a sample Heroku CodiMD application by clicking the button below.
@@ -139,6 +141,7 @@ If you are upgrading CodiMD from an older version, follow these steps:
 6. Run `node_modules/.bin/sequelize db:migrate`, this step will migrate your db to the latest schema
 7. Start your whole new server!
 
+To stay up to date with your installation it's recommended to join our [Matrix channel][matrix.org-url] or subscribe to the [release feed][github-release-feed].
 
 * **migrate-to-1.1.0**
 
@@ -185,6 +188,7 @@ There are some config settings you need to change in the files below.
 | `CMD_ALLOW_ANONYMOUS` | `true` or `false` | set to allow anonymous usage (default is `true`) |
 | `CMD_ALLOW_ANONYMOUS_EDITS` | `true` or `false` | if `allowAnonymous` is `true`, allow users to select `freely` permission, allowing guests to edit existing notes (default is `false`) |
 | `CMD_ALLOW_FREEURL` | `true` or `false` | set to allow new note creation by accessing a nonexistent note URL |
+| `CMD_FORBIDDEN_NODE_IDS` | `'robots.txt'` | disallow creation of notes, even if `CMD_ALLOW_FREEURL` is `true` |
 | `CMD_DEFAULT_PERMISSION` | `freely`, `editable`, `limited`, `locked` or `private` | set notes default permission (only applied on signed users) |
 | `CMD_DB_URL` | `mysql://localhost:3306/database` | set the database URL |
 | `CMD_SESSION_SECRET` | no example | Secret used to sign the session cookie. If non is set, one will randomly generated on startup |
@@ -217,7 +221,7 @@ There are some config settings you need to change in the files below.
 | `CMD_LDAP_USERNAMEFIELD` | Fallback to userid | The LDAP field which is used as the username on CodiMD |
 | `CMD_LDAP_TLS_CA` | `server-cert.pem, root.pem` | Root CA for LDAP TLS in PEM format (use comma to separate) |
 | `CMD_LDAP_PROVIDERNAME` | `My institution` | Optional name to be displayed at login form indicating the LDAP provider |
-| `CMD_SAML_IDPSSOURL` | `https://idp.example.com/sso` | authentication endpoint of IdP. for details, see [guide](docs/guides/auth.md#saml-onelogin). |
+| `CMD_SAML_IDPSSOURL` | `https://idp.example.com/sso` | authentication endpoint of IdP. for details, see [guide](docs/guides/auth/saml-onelogin.md). |
 | `CMD_SAML_IDPCERT` | `/path/to/cert.pem` | certificate file path of IdP in PEM format |
 | `CMD_SAML_ISSUER` | no example | identity of the service provider (optional, default: serverurl)" |
 | `CMD_SAML_IDENTIFIERFORMAT` | no example | name identifier format (optional, default: `urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress`) |
@@ -285,6 +289,7 @@ There are some config settings you need to change in the files below.
 | `allowAnonymous` | `true` or `false` | set to allow anonymous usage (default is `true`) |
 | `allowAnonymousEdits` | `true` or `false` | if `allowAnonymous` is `true`: allow users to select `freely` permission, allowing guests to edit existing notes (default is `false`) |
 | `allowFreeURL` | `true` or `false` | set to allow new note creation by accessing a nonexistent note URL |
+| `forbiddenNoteIDs` | `['robots.txt']` | disallow creation of notes, even if `allowFreeUrl` is `true` |
 | `defaultPermission` | `freely`, `editable`, `limited`, `locked`, `protected` or `private` | set notes default permission (only applied on signed users) |
 | `dbURL` | `mysql://localhost:3306/database` | set the db URL; if set, then db config (below) won't be applied |
 | `db` | `{ "dialect": "sqlite", "storage": "./db.codimd.sqlite" }` | set the db configs, [see more here](http://sequelize.readthedocs.org/en/latest/api/sequelize/) |
@@ -373,5 +378,6 @@ See more at [http://operational-transformation.github.io/](http://operational-tr
 [travis-url]: https://travis-ci.org/hackmdio/codimd
 [github-version-badge]: https://img.shields.io/github/release/hackmdio/codimd.svg
 [github-release-page]: https://github.com/hackmdio/codimd/releases
+[github-release-feed]: https://github.com/hackmdio/codimd/releases.atom
 [poeditor-image]: https://img.shields.io/badge/POEditor-translate-blue.svg
 [poeditor-url]: https://poeditor.com/join/project/1OpGjF2Jir
