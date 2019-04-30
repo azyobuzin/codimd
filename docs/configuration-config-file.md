@@ -150,4 +150,10 @@ Most of these have never been documented for the config.json, feel free to expan
 | --------- | ------ | ----------- |
 |`lutim`| `{"url": "YOUR_LUTIM_URL"}`| When `imageUploadType` is set to `lutim`, you can setup the lutim url|
 
+## Custom
+
+| variables | example values | description |
+| --------- | ------ | ----------- |
+| `showViewcount` | `true` or `false` | set `true` to show viewcount in published note |
+
 <sup>1</sup>: relative paths are based on CodiMD's base directory

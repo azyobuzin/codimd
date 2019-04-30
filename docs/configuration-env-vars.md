@@ -250,6 +250,12 @@ you don't have to use either of these.
 | -------- | ------------- | ----------- |
 | `CMD_LUTIM_URL` | `https://framapic.org/` |  When `CMD_IMAGE_UPLOAD_TYPE` is set to `lutim`, you can setup the lutim url |
 
+## Custom
+
+| variable | example value | description |
+| -------- | ------------- | ----------- |
+| `CMD_SHOW_VIEWCOUNT` | `true` or `false` | set `true` to show viewcount in published note |
+
 **Note:** *Due to the rename process we renamed all `HMD_`-prefix variables to be `CMD_`-prefixed. The old ones continue to work.*
 
 **Note:** *relative paths are based on CodiMD's base directory*
