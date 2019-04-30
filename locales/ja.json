@@ -113,5 +113,9 @@
     "Delete user": "ユーザーの削除",
     "Export user data": "ユーザーデータをエクスポート",
     "Help us translating on %s": "%s の翻訳にご協力ください",
-    "Source Code": "ソースコード"
+    "Source Code": "ソースコード",
+    "Register": "登録",
+    "Powered by %s": "Powered by %s",
+    "Help us translating": "翻訳のお手伝いをお願いします",
+    "Join the community": "コミュニティに参加しましょう"
 }

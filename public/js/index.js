@@ -1,7 +1,6 @@
 /* eslint-env browser, jquery */
-/* global CodeMirror, Cookies, moment, editor, ui, Spinner,
-   modeType, Idle, serverurl, key, gapi, Dropbox, FilePicker
-   ot, MediaUploader, hex2rgb, num_loaded, Visibility */
+/* global CodeMirror, Cookies, moment, Spinner, Idle, serverurl,
+   key, Dropbox, ot, hex2rgb, Visibility */
 
 require('../vendor/showup/showup')
 
@@ -18,6 +17,7 @@ import { saveAs } from 'file-saver'
 import randomColor from 'randomcolor'
 import store from 'store'
 import hljs from 'highlight.js'
+import url from 'wurl'
 
 import _ from 'lodash'
 
@@ -305,7 +305,6 @@ var editor = editorInstance.init(textit)
 // FIXME: global referncing in jquery-textcomplete patch
 window.editor = editor
 
-var inlineAttach = inlineAttachment.editors.codemirror4.attach(editor)
 defaultTextHeight = parseInt($('.CodeMirror').css('line-height'))
 
 //  initalize ui reference
@@ -802,7 +801,6 @@ function changeMode (type) {
     editor.getInputField().blur()
   }
   if (appState.currentMode === modeType.edit || appState.currentMode === modeType.both) {
-    ui.toolbar.uploadImage.fadeIn()
     // add and update status bar
     if (!editorInstance.statusBar) {
       editorInstance.addStatusBar()
@@ -815,8 +813,6 @@ function changeMode (type) {
     // work around foldGutter might not init properly
     editor.setOption('foldGutter', false)
     editor.setOption('foldGutter', true)
-  } else {
-    ui.toolbar.uploadImage.fadeOut()
   }
   if (appState.currentMode !== modeType.edit) {
     $(document.body).css('background-color', 'white')
@@ -1051,17 +1047,6 @@ ui.toolbar.import.snippet.click(function () {
         .always(function () {
           ui.spinner.hide()
         })
-})
-// import from clipboard
-ui.toolbar.import.clipboard.click(function () {
-    // na
-})
-// upload image
-ui.toolbar.uploadImage.bind('change', function (e) {
-  var files = e.target.files || e.dataTransfer.files
-  e.dataTransfer = {}
-  e.dataTransfer.files = files
-  inlineAttach.onDrop(e)
 })
 // toc
 ui.toc.dropdown.click(function (e) {
@@ -1389,12 +1374,12 @@ $('#gistImportModalConfirm').click(function () {
   if (!isValidURL(gisturl)) {
     showMessageModal('<i class="fa fa-github"></i> Import from Gist', 'Not a valid URL :(', '', '', false)
   } else {
-    var hostname = window.url('hostname', gisturl)
+    var hostname = url('hostname', gisturl)
     if (hostname !== 'gist.github.com') {
       showMessageModal('<i class="fa fa-github"></i> Import from Gist', 'Not a valid Gist URL :(', '', '', false)
     } else {
       ui.spinner.show()
-      $.get('https://api.github.com/gists/' + window.url('-1', gisturl))
+      $.get('https://api.github.com/gists/' + url('-1', gisturl))
                 .done(function (data) {
                   if (data.files) {
                     var contents = ''
