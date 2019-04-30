@@ -154,9 +154,6 @@ server.on('resumeSession', function (id, cb) {
   cb(null, tlsSessionStore[id.toString('hex')] || null)
 })
 
-// middleware which blocks requests when we're too busy
-app.use(require('./lib/web/middleware/tooBusy'))
-
 app.use(flash())
 
 // passport
