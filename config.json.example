@@ -3,7 +3,8 @@
         "db": {
             "dialect": "sqlite",
             "storage": ":memory:"
-        }
+        },
+        "linkifyHeaderStyle": "gfm"
     },
     "development": {
         "loglevel": "debug",
@@ -13,7 +14,8 @@
         "db": {
             "dialect": "sqlite",
             "storage": "./db.codimd.sqlite"
-        }
+        },
+        "linkifyHeaderStyle": "gfm"
     },
     "production": {
         "domain": "localhost",
@@ -91,7 +93,7 @@
         "saml": {
             "idpSsoUrl": "change: authentication endpoint of IdP",
             "idpCert": "change: certificate file path of IdP in PEM format",
-            "issuer": "change or delete: identity of the service provider (default: serverurl)",
+            "issuer": "change or delete: identity of the service provider (default: config.serverURL)",
             "identifierFormat": "change or delete: name identifier format (default: 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress')",
             "disableRequestedAuthnContext": "change or delete: true to allow any authentication method, false restricts to password authentication method (default: false)",
             "groupAttribute": "change or delete: attribute name for group list (ex: memberOf)",
@@ -123,6 +125,7 @@
         {
           "connectionString": "change this",
           "container": "change this"
-        }
+        },
+        "linkifyHeaderStyle": "gfm"
     }
 }

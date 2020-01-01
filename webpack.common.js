@@ -131,12 +131,20 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       {
-        context: path.join(__dirname, 'node_modules/mathjax'),
+        context: path.join(__dirname, 'node_modules/mathjax/unpacked'),
         from: {
           glob: '**/*',
           dot: false
         },
         to: 'MathJax/'
+      },
+      {
+        context: path.join(__dirname, 'node_modules/mathjax/fonts'),
+        from: {
+          glob: '**/*',
+          dot: false
+        },
+        to: 'fonts/'
       },
       {
         context: path.join(__dirname, 'node_modules/emojify.js'),
@@ -344,7 +352,7 @@ module.exports = {
 
   output: {
     path: path.join(__dirname, 'public/build'),
-    publicPath: '/build/',
+    publicPath: 'build/',
     filename: '[name].js'
   },
 

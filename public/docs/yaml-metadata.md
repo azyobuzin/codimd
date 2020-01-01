@@ -31,7 +31,7 @@ title: meta title
 
 description
 ---
-This option will set the note description.
+This option will set the note description as a `<meta name="description">` tag. This only affects the [Publish](../features#Share-Notes) function.
 
 > default: not set
 
@@ -68,7 +68,8 @@ robots: noindex, nofollow
 
 lang
 ---
-This option will set the language of the note, that might alter some typography of it.
+This option will set the language of the note.
+Setting the language helps the browser to apply rules such as typography correctly.
 You can find your the language code in ISO 639-1 standard:
 https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 
@@ -157,4 +158,21 @@ https://github.com/hakimel/reveal.js/tree/master/css/theme
 slideOptions:
   transition: fade
   theme: white
+```
+
+opengraph
+---
+This option allows you to override the default generated opengraph metadata.  
+See the [OpenGraph protocol documentation](https://ogp.me) for more information.
+
+**Notice: always use two spaces as indention in YAML metadata!**
+
+> default: not set (uses auto-generated metadata) 
+
+**Example**
+```yml
+opengraph:
+  title: Special title for OpenGraph protocol
+  image: https://dummyimage.com/600x600/000/fff
+  image:type: image/png
 ```

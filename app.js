@@ -22,7 +22,7 @@ var flash = require('connect-flash')
 // core
 var config = require('./lib/config')
 var logger = require('./lib/logger')
-var response = require('./lib/response')
+var errors = require('./lib/errors')
 var models = require('./lib/models')
 var csp = require('./lib/csp')
 
@@ -113,7 +113,7 @@ if (config.csp.enable) {
 }
 
 i18n.configure({
-  locales: ['en', 'zh-CN', 'zh-TW', 'fr', 'de', 'ja', 'es', 'ca', 'el', 'pt', 'it', 'tr', 'ru', 'nl', 'hr', 'pl', 'uk', 'hi', 'sv', 'eo', 'da', 'ko', 'id', 'sr', 'vi'],
+  locales: ['en', 'zh-CN', 'zh-TW', 'fr', 'de', 'ja', 'es', 'ca', 'el', 'pt', 'it', 'tr', 'ru', 'nl', 'hr', 'pl', 'uk', 'hi', 'sv', 'eo', 'da', 'ko', 'id', 'sr', 'vi', 'ar', 'cs', 'sk'],
   cookie: 'locale',
   indent: '    ', // this is the style poeditor.com exports it, this creates less churn
   directory: path.join(__dirname, '/locales'),
@@ -126,9 +126,9 @@ app.use(i18n.init)
 
 // routes without sessions
 // static files
-app.use('/', express.static(path.join(__dirname, '/public'), { maxAge: config.staticCacheTime, index: false }))
-app.use('/docs', express.static(path.resolve(__dirname, config.docsPath), { maxAge: config.staticCacheTime }))
-app.use('/uploads', express.static(path.resolve(__dirname, config.uploadsPath), { maxAge: config.staticCacheTime }))
+app.use('/', express.static(path.join(__dirname, '/public'), { maxAge: config.staticCacheTime, index: false, redirect: false }))
+app.use('/docs', express.static(path.resolve(__dirname, config.docsPath), { maxAge: config.staticCacheTime, redirect: false }))
+app.use('/uploads', express.static(path.resolve(__dirname, config.uploadsPath), { maxAge: config.staticCacheTime, redirect: false }))
 app.use('/default.md', express.static(path.resolve(__dirname, config.defaultNotePath), { maxAge: config.staticCacheTime }))
 
 // session
@@ -209,11 +209,11 @@ app.use(require('./lib/web/auth'))
 app.use(require('./lib/web/historyRouter'))
 app.use(require('./lib/web/userRouter'))
 app.use(require('./lib/web/imageRouter'))
-app.use(require('./lib/web/noteRouter'))
+app.use(require('./lib/web/note/router'))
 
 // response not found if no any route matxches
 app.get('*', function (req, res) {
-  response.errorNotFound(res)
+  errors.errorNotFound(res)
 })
 
 // socket.io secure

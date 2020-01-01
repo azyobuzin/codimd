@@ -39,8 +39,9 @@ all of these:
 * [Docker](docs/setup/docker.md)
 * [Kubernetes](docs/setup/kubernetes.md)
 * [Cloudron](docs/setup/cloudron.md)
+* [LinuxServer.io (multi-arch docker)](docs/setup/docker-linuxserver.md)
 * [Heroku](docs/setup/heroku.md)
-* [manual setup](docs/setup/manual-setup.md)
+* [Manual setup](docs/setup/manual-setup.md)
 
 If you do not wish to run your own setup, you can find a commercial offering at
 https://hackmd.io. This is not the same codebase as this one, but it is a very
@@ -85,7 +86,7 @@ which lets you use CodiMD from the comfort of your command line.
 
 Licensed under AGPLv3. For our list of contributors, see [AUTHORS](AUTHORS).
 
-[matrix.org-image]: https://img.shields.io/badge/Matrix.org-%23CodiMD@matrix.org-green.svg
+[matrix.org-image]: https://img.shields.io/matrix/codimd:matrix.org?logo=matrix&server_fqdn=matrix.org
 [matrix.org-url]: https://riot.im/app/#/room/#codimd:matrix.org
 [travis-image]: https://travis-ci.org/codimd/server.svg?branch=master
 [travis-url]: https://travis-ci.org/codimd/server
@@ -100,4 +101,4 @@ Licensed under AGPLv3. For our list of contributors, see [AUTHORS](AUTHORS).
 [codimd-community]: https://community.codimd.org
 [codimd-community-calls]: https://community.codimd.org/t/codimd-community-call/19
 [social-mastodon]: https://social.codimd.org/mastodon
-[social-mastodon-image]: https://img.shields.io/badge/social-mastodon-3c99dc.svg
+[social-mastodon-image]: https://img.shields.io/mastodon/follow/18547?domain=https%3A%2F%2Fsocial.snopyta.org&style=social
