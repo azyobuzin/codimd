@@ -351,7 +351,7 @@ module.exports = {
 
   output: {
     path: path.join(__dirname, 'public/build'),
-    publicPath: '/build/',
+    publicPath: 'build/',
     filename: '[name].js'
   },
 
