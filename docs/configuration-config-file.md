@@ -82,7 +82,7 @@ these are rarely used for various reasons.
 | variables | example values | description |
 | --------- | ------ | ----------- |
 | `allowGravatar` | `true` or `false` | set to `false` to disable [Libravatar](https://www.libravatar.org/) as profile picture source on your instance. Libravatar is a federated open-source alternative to Gravatar. |
-| `useCDN` | `true` or `false` | set to use CDN resources or not (default is `true`) |
+| `useCDN` | `true` or `false` | set to use CDN resources or not (default is `false`) |
 
 ## Users and Privileges
 
@@ -134,7 +134,7 @@ these are rarely used for various reasons.
 
 | variables | example values | description |
 | --------- | ------ | ----------- |
-| `google` | `{clientID: ..., clientSecret: ...}` | An object containing the client ID and the client secret obtained by the [Google API console](https://console.cloud.google.com/apis) |
+| `google` | `{clientID: ..., clientSecret: ..., hostedDomain: ...}` | An object containing the client ID and the client secret obtained by the [Google API console](https://console.cloud.google.com/apis) |
 
 ### LDAP Login
 
