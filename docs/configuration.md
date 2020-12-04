@@ -271,3 +271,9 @@ you don't have to use either of these.
 | ----------- | --------------- | ----------------------------- | --------------------------------------------------------------------------- |
 | `lutim`     |                 | `{"url": "YOUR_LUTIM_URL"}`   | When `imageUploadType` is set to `lutim`, you can setup the lutim url       |
 |             | `CMD_LUTIM_URL` | **`https://framapic.org/`**   | When `CMD_IMAGE_UPLOAD_TYPE` is set to `lutim`, you can setup the lutim url |
+
+## Custom
+
+| config file     | environment          | **default** and example value | description                                    |
+| --------------- | -------------------- | ----------------------------- | ---------------------------------------------- |
+| `showViewcount` | `CMD_SHOW_VIEWCOUNT` | **`true`** or `false`         | set `true` to show viewcount in published note |
