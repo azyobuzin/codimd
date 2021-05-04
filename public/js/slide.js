@@ -26,7 +26,7 @@ function extend () {
 
   for (const source of arguments) {
     for (const key in source) {
-      if (source.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
         target[key] = source[key]
       }
     }
@@ -36,18 +36,21 @@ function extend () {
 }
 
 // Optional libraries used to extend on reveal.js
-const deps = [{
-  src: `${serverurl}/build/reveal.js/lib/js/classList.js`,
-  condition () {
-    return !document.body.classList
+const deps = [
+  {
+    src: `${serverurl}/build/reveal.js/lib/js/classList.js`,
+    condition () {
+      return !document.body.classList
+    }
+  },
+  {
+    src: `${serverurl}/build/reveal.js/plugin/notes/notes.js`,
+    async: true,
+    condition () {
+      return !!document.body.classList
+    }
   }
-}, {
-  src: `${serverurl}/build/reveal.js/plugin/notes/notes.js`,
-  async: true,
-  condition () {
-    return !!document.body.classList
-  }
-}]
+]
 
 const slideOptions = {
   separator: '^(\r\n?|\n)---(\r\n?|\n)$',
@@ -72,60 +75,65 @@ const defaultOptions = {
 
 // options from yaml meta
 const meta = JSON.parse($('#meta').text())
-var options = {
-  autoPlayMedia: meta.slideOptions.autoPlayMedia,
-  autoSlide: meta.slideOptions.autoSlide,
-  autoSlideStoppable: meta.slideOptions.autoSlideStoppable,
-  backgroundTransition: meta.slideOptions.backgroundTransition,
-  center: meta.slideOptions.center,
-  controls: meta.slideOptions.controls,
-  controlsBackArrows: meta.slideOptions.controlsBackArrows,
-  controlsLayout: meta.slideOptions.controlsLayout,
-  controlsTutorial: meta.slideOptions.controlsTutorial,
-  defaultTiming: meta.slideOptions.defaultTiming,
-  display: meta.slideOptions.display,
-  embedded: meta.slideOptions.embedded,
-  fragmentInURL: meta.slideOptions.fragmentInURL,
-  fragments: meta.slideOptions.fragments,
-  hash: meta.slideOptions.hash,
-  height: meta.slideOptions.height,
-  help: meta.slideOptions.help,
-  hideAddressBar: meta.slideOptions.hideAddressBar,
-  hideCursorTime: meta.slideOptions.hideCursorTime,
-  hideInactiveCursor: meta.slideOptions.hideInactiveCursor,
-  history: meta.slideOptions.history,
-  keyboard: meta.slideOptions.keyboard,
-  loop: meta.slideOptions.loop,
-  margin: meta.slideOptions.margin,
-  maxScale: meta.slideOptions.maxScale,
-  minScale: meta.slideOptions.minScale,
-  minimumTimePerSlide: meta.slideOptions.minimumTimePerSlide,
-  mobileViewDistance: meta.slideOptions.mobileViewDistance,
-  mouseWheel: meta.slideOptions.mouseWheel,
-  navigationMode: meta.slideOptions.navigationMode,
-  overview: meta.slideOptions.overview,
-  parallaxBackgroundHorizontal: meta.slideOptions.parallaxBackgroundHorizontal,
-  parallaxBackgroundImage: meta.slideOptions.parallaxBackgroundImage,
-  parallaxBackgroundSize: meta.slideOptions.parallaxBackgroundSize,
-  parallaxBackgroundVertical: meta.slideOptions.parallaxBackgroundVertical,
-  preloadIframes: meta.slideOptions.preloadIframes,
-  previewLinks: meta.slideOptions.previewLinks,
-  progress: meta.slideOptions.progress,
-  rtl: meta.slideOptions.rtl,
-  showNotes: meta.slideOptions.showNotes,
-  shuffle: meta.slideOptions.shuffle,
-  slideNumber: meta.slideOptions.slideNumber,
-  theme: meta.slideOptions.theme,
-  totalTime: meta.slideOptions.totalTime,
-  touch: meta.slideOptions.touch,
-  transition: meta.slideOptions.transition,
-  transitionSpeed: meta.slideOptions.transitionSpeed,
-  viewDistance: meta.slideOptions.viewDistance,
-  width: meta.slideOptions.width
-} || {}
+const metaSlideOptions = !!meta && !!meta.slideOptions ? meta.slideOptions : {}
+let options =
+  {
+    autoPlayMedia: metaSlideOptions.autoPlayMedia,
+    autoSlide: metaSlideOptions.autoSlide,
+    autoSlideStoppable: metaSlideOptions.autoSlideStoppable,
+    backgroundTransition: metaSlideOptions.backgroundTransition,
+    center: metaSlideOptions.center,
+    controls: metaSlideOptions.controls,
+    controlsBackArrows: metaSlideOptions.controlsBackArrows,
+    controlsLayout: metaSlideOptions.controlsLayout,
+    controlsTutorial: metaSlideOptions.controlsTutorial,
+    defaultTiming: metaSlideOptions.defaultTiming,
+    display: metaSlideOptions.display,
+    embedded: metaSlideOptions.embedded,
+    fragmentInURL: metaSlideOptions.fragmentInURL,
+    fragments: metaSlideOptions.fragments,
+    hash: metaSlideOptions.hash,
+    height: metaSlideOptions.height,
+    help: metaSlideOptions.help,
+    hideAddressBar: metaSlideOptions.hideAddressBar,
+    hideCursorTime: metaSlideOptions.hideCursorTime,
+    hideInactiveCursor: metaSlideOptions.hideInactiveCursor,
+    history: metaSlideOptions.history,
+    keyboard: metaSlideOptions.keyboard,
+    loop: metaSlideOptions.loop,
+    margin: metaSlideOptions.margin,
+    maxScale: metaSlideOptions.maxScale,
+    minScale: metaSlideOptions.minScale,
+    minimumTimePerSlide: metaSlideOptions.minimumTimePerSlide,
+    mobileViewDistance: metaSlideOptions.mobileViewDistance,
+    mouseWheel: metaSlideOptions.mouseWheel,
+    navigationMode: metaSlideOptions.navigationMode,
+    overview: metaSlideOptions.overview,
+    parallaxBackgroundHorizontal: metaSlideOptions.parallaxBackgroundHorizontal,
+    parallaxBackgroundImage: metaSlideOptions.parallaxBackgroundImage,
+    parallaxBackgroundSize: metaSlideOptions.parallaxBackgroundSize,
+    parallaxBackgroundVertical: metaSlideOptions.parallaxBackgroundVertical,
+    preloadIframes: metaSlideOptions.preloadIframes,
+    previewLinks: metaSlideOptions.previewLinks,
+    progress: metaSlideOptions.progress,
+    rtl: metaSlideOptions.rtl,
+    showNotes: metaSlideOptions.showNotes,
+    shuffle: metaSlideOptions.shuffle,
+    slideNumber: metaSlideOptions.slideNumber,
+    theme: metaSlideOptions.theme,
+    totalTime: metaSlideOptions.totalTime,
+    touch: metaSlideOptions.touch,
+    transition: metaSlideOptions.transition,
+    transitionSpeed: metaSlideOptions.transitionSpeed,
+    viewDistance: metaSlideOptions.viewDistance,
+    width: metaSlideOptions.width
+  } || {}
 
 for (const key in options) {
-  if (options.hasOwnProperty(key) && options[key] === undefined) {
+  if (
+    Object.prototype.hasOwnProperty.call(options, key) &&
+    options[key] === undefined
+  ) {
     delete options[key]
   }
 }
@@ -164,14 +172,14 @@ window.viewAjaxCallback = () => {
 function renderSlide (event) {
   if (window.location.search.match(/print-pdf/gi)) {
     const slides = $('.slides')
-    let title = document.title
+    const title = document.title
     finishView(slides)
     document.title = title
     Reveal.layout()
   } else {
     const markdown = $(event.currentSlide)
     if (!markdown.attr('data-rendered')) {
-      let title = document.title
+      const title = document.title
       finishView(markdown)
       markdown.attr('data-rendered', 'true')
       document.title = title
@@ -180,7 +188,7 @@ function renderSlide (event) {
   }
 }
 
-Reveal.addEventListener('ready', event => {
+Reveal.addEventListener('ready', (event) => {
   renderSlide(event)
   const markdown = $(event.currentSlide)
   // force browser redraw
