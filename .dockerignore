@@ -1,6 +1,10 @@
 .git/
 !.git/HEAD
 !.git/refs/
+Dockerfile
+.dockerignore
 node_modules/
 public/build/
-db.hackmd.sqlite
+public/views/build/
+config.json
+*.sqlite
